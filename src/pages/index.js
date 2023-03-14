@@ -1,18 +1,38 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
+import { useState } from 'react'
 
 import { getServerSideData } from "./api/index.js"
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({  data }) {
+export default function Home({ data }) {
 
   data.sort((a, b) => {
     if (a.error !== undefined && b.error === undefined) return 1
     if (a.error === undefined && b.error !== undefined) return -1
     return 0
   })
+  const uiData = data.map(server => {
+    return { ...server, showMore: false }
+  })
+
+  const [serversData, setServersData] = useState(uiData)
+  const handleShowMore = (game) => {
+    console.log(serversData.find((server) => server.game === game))
+    const updatedServers = serversData.map((server) =>
+      server.game === game
+        ? { ...server, showMore: !server.showMore }
+        : server
+    )
+    setServersData(updatedServers)
+    /*     setServersData(
+          servers.map((server) => {
+            server.game === 
+          })
+          ) */
+  }
 
   return (
     <>
@@ -36,7 +56,7 @@ export default function Home({  data }) {
           Server Dashboard
         </h1>
         <ul>
-          {data.map((server) => (
+          {serversData.map((server) => (
             server.error
               ? <li key={server.game} >
                 <span className='red dot mr-2' />
@@ -49,6 +69,24 @@ export default function Home({  data }) {
                 <span className=' text-stone-100	'>
                   {server.game} is UP with {server.players.length}/{server.maxplayers} players
                 </span>
+                <button onClick={() => handleShowMore(server.game)}>
+                  {server.showMore ? "Show less" : "Show more"}
+                </button>
+
+                {
+                  server.showMore
+                    ? <ul>
+                      {Object.keys(server).map((key) => {
+                        if (typeof server[key] === "object") {
+                          return null
+                        }
+                        return <li>{key}: {server[key]}</li>
+                      })}
+                    </ul>
+                    // ? <div><code>{JSON.stringify(server, null, "\t")}</code></div>
+                    : ""
+                }
+
               </li>
           ))}
         </ul>
