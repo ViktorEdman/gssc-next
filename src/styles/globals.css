@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.dot {
+	height: 12px;
+	width: 12px;
+	border-radius: 50%;
+	display: inline-block;
+  }
+
+.green {background-color: green;}
+.red {background-color: red;}
+.black {background-color: black;}
