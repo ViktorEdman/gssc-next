@@ -6,7 +6,7 @@ import { getServerSideData } from "./api/index.js"
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ data }) {
+export default function Home({  data }) {
 
   data.sort((a, b) => {
     if (a.error !== undefined && b.error === undefined) return 1
