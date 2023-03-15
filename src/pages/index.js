@@ -7,18 +7,19 @@ import { getServerSideData } from './api'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ data }) {
+export default function Home({ data, date }) {
 
   data.sort((a, b) => {
     if (a.error !== undefined && b.error === undefined) return 1
     if (a.error === undefined && b.error !== undefined) return -1
     return 0
   })
-  const uiData = data.map(server => {
-    return { ...server, showMore: false }
-  })
 
-  const [serversData, setServersData] = useState(uiData)
+  const [serversData, setServersData] = useState(data
+    .map(server => ({ ...server, showMore: false })))
+  
+  const [lastUpdate, setLastUpdate] = useState(new Date(date).toLocaleTimeString())
+
   const handleShowMore = (game) => {
     const updatedServers = serversData.map((server) =>
       server.game === game
@@ -36,6 +37,7 @@ export default function Home({ data }) {
             <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore}/>
           ))}
         </ul>
+        <div>Last update was at {lastUpdate}</div>
         </Layout>
     </>
   )
@@ -44,11 +46,14 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps() {
+  console.log('Generating static props at ', Date())
   const serverData = getServerSideData()
   const data = JSON.parse(JSON.stringify(serverData))
+  const date = Date.now()
   return {
      props: {
-       data 
+       data,
+       date
       },
       revalidate: 30
     }

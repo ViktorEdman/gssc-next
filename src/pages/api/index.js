@@ -41,7 +41,7 @@ let pollingStatus = false
 let serverData = await retrieveServerData(servers)
 setInterval(async () => {
     if (pollingStatus === true) {
-        console.log("Polling loop is running, retrieving data at", new Date().toISOString().slice(11, 19) + " UTC")
+        console.log("Polling loop is running, retrieving data at", Date())
         const response = await retrieveServerData(servers)
         serverData = response
 
