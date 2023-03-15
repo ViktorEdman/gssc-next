@@ -46,7 +46,7 @@ export default function Home({ data }) {
         </h1>
         <ul>
           {serversData.map((server) => (
-            <ServerInfo server={server} key={server.game}/>
+            <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore}/>
           ))}
         </ul>
       </main>

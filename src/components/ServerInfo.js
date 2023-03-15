@@ -1,4 +1,4 @@
-function ServerInfo({server}) {
+function ServerInfo({server, handleShowMore}) {
     return (
         server.error
           ? <li >
