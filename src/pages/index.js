@@ -1,8 +1,8 @@
 import ServerInfo from '@/components/ServerInfo'
 import { Inter } from 'next/font/google'
 import { useState } from 'react'
-import Header from '@/components/Header'
-import Title from '@/components/Title'
+import Layout from '@/components/Layout'
+import { getServerSideData } from './api'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -30,15 +30,13 @@ export default function Home({ data }) {
 
   return (
     <>
-      <Header/>
-      <main className="container mx-auto text-xl max-w-2xl">
-        <Title/>
+      <Layout>
         <ul className="w-max max-w-80">
           {serversData.map((server) => (
             <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore}/>
           ))}
         </ul>
-      </main>
+        </Layout>
     </>
   )
 
@@ -46,12 +44,12 @@ export default function Home({ data }) {
 }
 
 export async function getStaticProps() {
-  const serverData = await fetch("http://localhost:3000/api")
-  const data = await serverData.json()
+  const serverData = getServerSideData()
+  const data = JSON.parse(JSON.stringify(serverData))
   return {
      props: {
        data 
       },
-      revalidate: 30, 
+      revalidate: 30
     }
 }

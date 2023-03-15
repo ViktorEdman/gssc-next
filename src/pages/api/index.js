@@ -72,6 +72,10 @@ export function getServerSideData() {
     return serverData;
 }
 
+export function getConfiguredServers() {
+    return servers;
+}
+
 export default function handler(req, res) {
     pollingStatus = true
     res.status(200).json(serverData)
