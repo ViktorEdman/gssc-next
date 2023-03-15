@@ -1,8 +1,7 @@
-import Head from 'next/head'
+import ServerInfo from '@/components/ServerInfo'
 import { Inter } from 'next/font/google'
 import { useState } from 'react'
-
-import { getServerSideData } from "./api/index.js"
+import Header from '../components/Header'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,21 +26,11 @@ export default function Home({ data }) {
         : server
     )
     setServersData(updatedServers)
-    /*     setServersData(
-          servers.map((server) => {
-            server.game === 
-          })
-          ) */
   }
 
   return (
     <>
-      <Head>
-        <title>GSSC dashboard</title>
-        <meta name="description" content="Monitor and edit game servers" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon-32x32.png" />
-      </Head>
+      <Header/>
       <main className="container mx-auto text-xl">
         <h1 className="mb-4
          text-2xl 
@@ -57,37 +46,7 @@ export default function Home({ data }) {
         </h1>
         <ul>
           {serversData.map((server) => (
-            server.error
-              ? <li key={server.game} >
-                <span className='red dot mr-2' />
-                <span className="text-stone-100/50">
-                  {server.game} is DOWN
-                </span>
-              </li>
-              : <li key={server.game}>
-                <span className='green dot mr-2' />
-                <span className=' text-stone-100	'>
-                  {server.game} is UP with {server.players.length}/{server.maxplayers} players
-                </span>
-                <button onClick={() => handleShowMore(server.game)}>
-                  {server.showMore ? "Show less" : "Show more"}
-                </button>
-
-                {
-                  server.showMore
-                    ? <ul>
-                      {Object.keys(server).map((key) => {
-                        if (typeof server[key] === "object") {
-                          return null
-                        }
-                        return <li>{key}: {server[key]}</li>
-                      })}
-                    </ul>
-                    // ? <div><code>{JSON.stringify(server, null, "\t")}</code></div>
-                    : ""
-                }
-
-              </li>
+            <ServerInfo server={server} key={server.game}/>
           ))}
         </ul>
       </main>
@@ -97,14 +56,13 @@ export default function Home({ data }) {
 
 }
 
-export async function getServerSideProps({ res, req }) {
-  // Fetch data from external API
-  res.setHeader(
-    'Cache-Control',
-    'public, s-maxage=10, stale-while-revalidate=59'
-  )
-  // Pass data to the page via props
-  const serverData = getServerSideData()
-  const data = JSON.parse(JSON.stringify(serverData))
-  return { props: { data } }
+export async function getStaticProps() {
+  const serverData = await fetch("http://localhost:3000/api")
+  const data = await serverData.json()
+  return {
+     props: {
+       data 
+      },
+      revalidate: 30, 
+    }
 }
