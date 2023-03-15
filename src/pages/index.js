@@ -1,7 +1,8 @@
 import ServerInfo from '@/components/ServerInfo'
 import { Inter } from 'next/font/google'
 import { useState } from 'react'
-import Header from '../components/Header'
+import Header from '@/components/Header'
+import Title from '@/components/Title'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -19,7 +20,6 @@ export default function Home({ data }) {
 
   const [serversData, setServersData] = useState(uiData)
   const handleShowMore = (game) => {
-    console.log(serversData.find((server) => server.game === game))
     const updatedServers = serversData.map((server) =>
       server.game === game
         ? { ...server, showMore: !server.showMore }
@@ -31,20 +31,9 @@ export default function Home({ data }) {
   return (
     <>
       <Header/>
-      <main className="container mx-auto text-xl">
-        <h1 className="mb-4
-         text-2xl 
-         font-extrabold 
-         leading-none
-          tracking-tight
-           text-gray-900
-            md:text-5xl
-             lg:text-6xl
-              dark:text-white"
-        >
-          Server Dashboard
-        </h1>
-        <ul>
+      <main className="container mx-auto text-xl max-w-2xl">
+        <Title/>
+        <ul className="w-max max-w-80">
           {serversData.map((server) => (
             <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore}/>
           ))}
