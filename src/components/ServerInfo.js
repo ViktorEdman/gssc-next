@@ -10,7 +10,7 @@ function ServerInfo({server, handleShowMore}) {
               {server.game} is DOWN
             </span>
           </li>
-          : <li className="bg-black/40 max-w-max my-10 py-2 px-2 rounded-2xl">
+          : <li className="bg-black/40 max-w-md my-10 py-2 px-2 rounded-2xl font">
             <span className='green dot mr-2' />
             <span className=' text-stone-100	'>
               {server.game} is UP with {server.players.length}/{server.maxplayers} players

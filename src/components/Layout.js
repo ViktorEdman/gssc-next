@@ -6,7 +6,7 @@ function Layout({children}) {
     return (<>  
         <Header/>
         
-        <main className="container mx-auto text-xl max-w-2xl">
+        <main className="container mx-auto text-xl max-w-xl">
         <Title/>
         <navbar>
            <Link href="/"
