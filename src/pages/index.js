@@ -1,13 +1,14 @@
 import ServerInfo from '@/components/ServerInfo'
 import { Inter } from 'next/font/google'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { getServerSideData } from './api'
-
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data, date }) {
+
+
 
   data.sort((a, b) => {
     if (a.error !== undefined && b.error === undefined) return 1
@@ -20,6 +21,7 @@ export default function Home({ data, date }) {
   
   const [lastUpdate, setLastUpdate] = useState(new Date(date))
   const [displayRawData, setDisplayRawData] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleShowMore = (game) => {
     const updatedServers = serversData.map((server) =>
@@ -30,6 +32,21 @@ export default function Home({ data, date }) {
     setServersData(updatedServers)
   }
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLoading(true)
+      fetch('/api')
+      .then((res) => res.json())
+      .then((data) => {
+        setServersData(data)
+        setLastUpdate(new Date(Date.now()))
+        setLoading(false)
+      })
+
+    }, 5000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <>
       <Layout>
@@ -38,9 +55,12 @@ export default function Home({ data, date }) {
             <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} />
           ))}
         </ul>
-        <div>Last update was at {
+        <div className='text-stone-100'>Last update was at {
         lastUpdate.toLocaleTimeString('sv-se', {timeZone: "CET"})
         }</div>
+        {loading
+        ?<div>Loading new data</div>
+        :null}
         <button 
         onClick={() => setDisplayRawData(!displayRawData)}
         className="bg-blue-500 rounded px-2 py-2 my-5"
