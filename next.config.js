@@ -11,6 +11,7 @@ const nextConfig = {
       layers: true
     }
     return config
-  }
+  },
+  output: "standalone",
 }
 module.exports = nextConfig

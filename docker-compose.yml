@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  next:
+    build: .
+    container_name: gssc-next
+    networks:
+      - web
+
+networks:
+  web:
+    external: true
