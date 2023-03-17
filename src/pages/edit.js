@@ -13,7 +13,7 @@ function Edit({ data }) {
               dark:text-white"
             >Currently monitored servers</h2>
 
-            <table className="w-full text-sm text-left text-black">
+            <table className="w-full text-sm text-left text-slate-300">
                 <thead>
                     <tr>
                         <th scope="col">Name</th>

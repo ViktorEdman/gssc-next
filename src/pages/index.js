@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { getServerSideData } from './api'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -48,7 +49,7 @@ export default function Home({ data, date }) {
   }
 
   useEffect(() => {
-    const interval = setInterval(updateData(), 60000)
+    const interval = setInterval(() => updateData(), 30000)
     return () => clearInterval(interval)
   }, [])
 
@@ -63,9 +64,15 @@ export default function Home({ data, date }) {
         <div className='text-stone-100'>Last update was at {
         lastUpdate.toLocaleTimeString('sv-se', {timeZone: "CET"})
         }</div>
+        {
+        loading?
+        <div className='text-stone-100'>Loading data... <LoadingSpinner/></div>
+        :null
+        }
+        
         <button 
         onClick={() => setDisplayRawData(!displayRawData)}
-        className="bg-blue-500 rounded px-2 py-2 my-5"
+        className="bg-blue-500 rounded px-2 py-2 my-5 text-white dark:bg-blue-800"
         >
           {displayRawData
           ? "Hide raw data"

@@ -13,9 +13,10 @@ module.exports = {
       colors: {
         serverYellow: "#fcdf1b",
         serverOrange: "#fc0513"
-      }
+      },
+      
     },
-
+    darkMode: "media",
   },
   plugins: [],
 }

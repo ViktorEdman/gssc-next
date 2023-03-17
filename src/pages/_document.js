@@ -8,7 +8,9 @@ export default function Document() {
                   bg-gradient-to-b
                   from-serverYellow
                   to-serverOrange
-                 {/*  bg-serverOrange */}
+                  dark:bg-gradient-to-t
+                  dark:from-[#d1138f]
+                  dark:to-[#183d88]
                   bg-cover
                   bg-repeat-x
 

@@ -17,7 +17,7 @@ function ServerInfo({server, handleShowMore, showMore}) {
             </span>
             <button 
             onClick={() => handleShowMore(server.game)}
-            className="rounded bg-blue-500 mx-5 px-4 py-2">
+            className="rounded bg-blue-500  dark:bg-blue-800 my-3 mx-5 px-4 py-2 text-white">
               {showMore ? "Show less" : "Show more"}
             </button>
 
