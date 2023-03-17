@@ -9,18 +9,22 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home({ data, date }) {
 
 
-//Sort servers into online first, offline second
+  //Sort servers into online first, offline second
   data.sort((a, b) => {
     if (a.error !== undefined && b.error === undefined) return 1
     if (a.error === undefined && b.error !== undefined) return -1
     return 0
   })
 
+  // initiate serverdata with static props
   const [serversData, setServersData] = useState(data)
+  // Set showMore array to same size as number of servers
   const [showMore, setShowMore] = useState(new Array(data.length).fill(false))
-  
+  // Timestam latest update from server
   const [lastUpdate, setLastUpdate] = useState(new Date(date))
+  // Set whether to show raw data
   const [displayRawData, setDisplayRawData] = useState(false)
+  // animate loading new server data
   const [loading, setLoading] = useState(false)
 
   const handleShowMore = (server) => {
@@ -58,10 +62,7 @@ export default function Home({ data, date }) {
         </ul>
         <div className='text-stone-100'>Last update was at {
         lastUpdate.toLocaleTimeString('sv-se', {timeZone: "CET"})
-        }</div><svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
-        {loading
-        ?<div>Loading new data <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg></div>
-        :null}
+        }</div>
         <button 
         onClick={() => setDisplayRawData(!displayRawData)}
         className="bg-blue-500 rounded px-2 py-2 my-5"
@@ -96,6 +97,6 @@ export async function getStaticProps() {
       data,
       date
     },
-    revalidate: 30
+    revalidate: 60
   }
 }
