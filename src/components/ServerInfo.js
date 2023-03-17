@@ -1,4 +1,4 @@
-function ServerInfo({server, handleShowMore}) {
+function ServerInfo({server, handleShowMore, showMore}) {
     const {name, map, password} = server
         
     
@@ -18,11 +18,11 @@ function ServerInfo({server, handleShowMore}) {
             <button 
             onClick={() => handleShowMore(server.game)}
             className="rounded bg-blue-500 mx-5 px-4 py-2">
-              {server.showMore ? "Show less" : "Show more"}
+              {showMore ? "Show less" : "Show more"}
             </button>
 
             {
-              server.showMore
+              showMore
                 ? <ul className="text-white/80 ml-8">
                     
                     <li>Server name: {name}</li>

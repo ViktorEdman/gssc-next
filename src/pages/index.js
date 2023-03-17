@@ -9,57 +9,58 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home({ data, date }) {
 
 
-
+//Sort servers into online first, offline second
   data.sort((a, b) => {
     if (a.error !== undefined && b.error === undefined) return 1
     if (a.error === undefined && b.error !== undefined) return -1
     return 0
   })
 
-  const [serversData, setServersData] = useState(data
-    .map(server => ({ ...server, showMore: false })))
+  const [serversData, setServersData] = useState(data)
+  const [showMore, setShowMore] = useState(new Array(data.length).fill(false))
   
   const [lastUpdate, setLastUpdate] = useState(new Date(date))
   const [displayRawData, setDisplayRawData] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const handleShowMore = (game) => {
-    const updatedServers = serversData.map((server) =>
-      server.game === game
-        ? { ...server, showMore: !server.showMore }
-        : server
-    )
-    setServersData(updatedServers)
+  const handleShowMore = (server) => {
+    const serverIndex = serversData.map(s => s.game).indexOf(server)
+    console.log(serverIndex)
+    let newShowMore = [...showMore]
+    newShowMore[serverIndex] = !showMore[serverIndex]
+    setShowMore(newShowMore)
+  }
+
+  const updateData = () => {
+    setLoading(true)
+    fetch('/api')
+    .then((res) => res.json())
+    .then((data) => {
+      setServersData(data)
+      setLastUpdate(new Date(Date.now()))
+      setLoading(false)
+    })
+
   }
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLoading(true)
-      fetch('/api')
-      .then((res) => res.json())
-      .then((data) => {
-        setServersData(data)
-        setLastUpdate(new Date(Date.now()))
-        setLoading(false)
-      })
-
-    }, 5000)
+    const interval = setInterval(updateData(), 60000)
     return () => clearInterval(interval)
   }, [])
 
   return (
     <>
       <Layout>
-        <ul className="w-full z-100">
-          {serversData.map((server) => (
-            <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} />
+        <ul className={`w-full z-100 ${loading ? "animate-pulse" : null}`}>
+          {serversData.map((server, index) => (
+            <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} showMore={showMore[index]}/>
           ))}
         </ul>
         <div className='text-stone-100'>Last update was at {
         lastUpdate.toLocaleTimeString('sv-se', {timeZone: "CET"})
-        }</div>
+        }</div><svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg>
         {loading
-        ?<div>Loading new data</div>
+        ?<div>Loading new data <svg className="animate-spin h-5 w-5 mr-3 ..." viewBox="0 0 24 24"></svg></div>
         :null}
         <button 
         onClick={() => setDisplayRawData(!displayRawData)}
