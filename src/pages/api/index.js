@@ -47,7 +47,7 @@ setInterval(async () => {
 
     }
     pollingStatus = false
-}, 60000)
+}, 30000)
 
 export async function retrieveServerData(servers) {
     const requests = servers.map(async server => {
@@ -58,7 +58,8 @@ export async function retrieveServerData(servers) {
         } catch (error) {
             return ({
                 game: server.prettyName,
-                error: "Upstream server is not responding"
+                error: "Upstream server is not responding",
+                rawError: error
             })
         }
 
@@ -77,6 +78,5 @@ export function getConfiguredServers() {
 }
 
 export default function handler(req, res) {
-    pollingStatus = true
-    res.status(200).json(serverData)
+    res.status(200).json(getServerSideData())
 }

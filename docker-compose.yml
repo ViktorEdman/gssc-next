@@ -6,6 +6,10 @@ services:
     container_name: gssc-next
     networks:
       - web
+    dns:
+      - 192.168.50.238
+      - 192.168.50.230
+      - 8.8.8.8
 
 networks:
   web:

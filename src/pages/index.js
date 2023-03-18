@@ -49,7 +49,7 @@ export default function Home({ data, date }) {
   }
 
   useEffect(() => {
-    const interval = setInterval(() => updateData(), 30000)
+    const interval = setInterval(() => updateData(), 10000)
     return () => clearInterval(interval)
   }, [])
 
