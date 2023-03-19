@@ -1,16 +1,29 @@
 version: '3'
 
 services:
-  next:
-    build: .
-    container_name: gssc-next
-    networks:
-      - web
-    dns:
-      - 192.168.50.238
-      - 192.168.50.230
-      - 8.8.8.8
-
-networks:
-  web:
-    external: true
+  db:
+    image: postgres:alpine
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      - ./postgresdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  db-admin:
+    image: michalhosna/adminer
+    restart: always
+    ports:
+      - 8080:8080
+    env_file:
+      - ./.env
+    environment:
+      ADMINER_DB: "${POSTGRES_DB}"
+      ADMINER_DRIVER: pgsql
+      ADMINER_PASSWORD: "${POSTGRES_PASSWORD}"
+      ADMINER_SERVER: db
+      ADMINER_USERNAME: ${POSTGRES_USER}
+      ADMINER_AUTOLOGIN: 1
+      ADMINER_NAME: DB admin
+    depends_on:
+      - db

@@ -41,6 +41,11 @@ export default function Home({ data, date }) {
     fetch('/api')
     .then((res) => res.json())
     .then((data) => {
+      data.sort((a, b) => {
+        if (a.error !== undefined && b.error === undefined) return 1
+        if (a.error === undefined && b.error !== undefined) return -1
+        return 0
+      })
       setServersData(data)
       setLastUpdate(new Date(Date.now()))
       setLoading(false)
