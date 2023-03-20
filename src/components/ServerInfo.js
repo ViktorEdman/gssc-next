@@ -4,7 +4,7 @@ function ServerInfo({server, handleShowMore, showMore}) {
     
     return (
         server.error
-          ? <li >
+          ? <li className="px-2">
             <span className='red dot mr-2' />
             <span className="text-stone-100/50">
               {server.game} is DOWN
