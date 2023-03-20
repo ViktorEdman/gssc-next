@@ -33,7 +33,7 @@ function ServerInfo({server, handleShowMore, showMore}) {
                 ? <ul className="text-white/80 ml-8">
                     
                     <li>Server name: {name}</li>
-                    <li>Map: {map}</li>
+                    {map.length > 0?<li>Map: {map}</li> : null}
                     <li>Password protected: {password? "yes" : "no"}</li>
                     {server.raw.version
                     ? <li>Server version: {server.raw.version}</li>

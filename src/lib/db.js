@@ -1,4 +1,4 @@
-const { Client } = require("pg")
+const { Client, Pool } = require("pg")
 const dotenv = require("dotenv")
 const bcrypt = require("bcrypt")
 
@@ -11,6 +11,8 @@ const DBCONFIG = {
     password: process.env.POSTGRES_PASSWORD,
     port: process.env.POSTGRES_PORT || "5432",
 }
+
+const pool = new Pool(DBCONFIG)
 
 const connectToDb = async () => {
     try {
@@ -44,15 +46,12 @@ const doesAdminExist = async () => {
     SELECT *
     FROM users
     WHERE name = 'admin'`
-    const client = await connectToDb()
     try {
-        const res = await client.query(SQL)
-        await client.end()
+        const res = await pool.query(SQL)
         if (res.rows.length > 0) return true
         return false
     }
     catch (error) {
-        await client.end()
         return false
     }
 }
@@ -62,14 +61,10 @@ const createUser = async (username, password, role) => {
     INSERT INTO users(name, password, role)
     VALUES ('${username}', '${password}', '${role}');
     `
-    const client = await connectToDb()
     try {
-        const res = await client.query(SQL)
-        await client.end()
-        console.log(res)
+        await pool.query(SQL)
     }
     catch (error) {
-        await client.end()
         console.log(error)
     }
 }
@@ -89,5 +84,4 @@ const initDb = async () => {
 }
 
 initDb()
-
 
