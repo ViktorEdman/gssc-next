@@ -10,16 +10,23 @@ function ServerInfo({server, handleShowMore, showMore}) {
               {server.game} is DOWN
             </span>
           </li>
-          : <li className="bg-black/40 max-w-md my-4 py-2 px-2 rounded-2xl font">
+          : <li className="bg-black/40 max-w-md my-2 py-2 px-2 rounded-2xl cursor-pointer"
+          
+          onClick={(e) =>  {
+            e.preventDefault()
+            handleShowMore(server.game)
+          }}>
             <span className='green dot mr-2' />
             <span className=' text-stone-100	'>
               {server.game} is UP with {server.players.length}/{server.maxplayers} players
+              <span
+              className="float-right">{showMore ? "-" : "+"}</span>
             </span>
-            <button 
+{/*             <button 
             onClick={() => handleShowMore(server.game)}
             className="rounded bg-blue-500  dark:bg-blue-800 my-3 mx-5 px-4 py-2 text-white">
               {showMore ? "Show less" : "Show more"}
-            </button>
+            </button> */}
 
             {
               showMore

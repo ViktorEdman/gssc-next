@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+  gssc:
+    build: .
+    networks:
+      - web
+    container_name: gssc-next
+    dns:
+      - 1.1.1.1
   db:
     image: postgres:alpine
     restart: always
@@ -27,3 +34,7 @@ services:
       ADMINER_NAME: DB admin
     depends_on:
       - db
+
+networks:
+  web:
+    external: true

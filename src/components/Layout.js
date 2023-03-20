@@ -8,7 +8,7 @@ function Layout({ children }) {
     return (<>
         <Header />
 
-        <main className="container mx-auto text-xl max-w-xl px-5 text-slate-400">
+        <main className="container mx-auto text-lg max-w-xl px-5 text-slate-400">
             <Title />
             <nav className="my-5">
                 <Link href="/"

@@ -1,1 +1,8 @@
 node_modules
+postgresdata
+.next
+.vscode
+.gitignore
+README.md
+.dockerignore
+.git

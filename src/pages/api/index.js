@@ -59,7 +59,7 @@ export async function retrieveServerData(servers) {
             return ({
                 game: server.prettyName,
                 error: "Upstream server is not responding",
-                rawError: error
+                rawError: JSON.stringify(error)
             })
         }
 

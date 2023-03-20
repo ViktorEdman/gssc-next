@@ -2,25 +2,26 @@ const { Client } = require("pg")
 const dotenv = require("dotenv")
 const bcrypt = require("bcrypt")
 
-dotenv.config({path: '../../.env'})
-const ADMINPASSWORD = process.env.GSSC_ADMIN_PASSWORD  ||  Math.random().toString(36).slice(-8)
+dotenv.config({ path: '../../.env' })
+const ADMINPASSWORD = process.env.GSSC_ADMIN_PASSWORD || Math.random().toString(36).slice(-8)
+const DBCONFIG = {
+    user: process.env.POSTGRES_USER,
+    host: process.env.POSTGRES_HOST || "localhost",
+    database: process.env.POSTGRES_DATABASE,
+    password: process.env.POSTGRES_PASSWORD,
+    port: process.env.POSTGRES_PORT || "5432",
+}
 
 const connectToDb = async () => {
     try {
-        const client = new Client({
-            user: process.env.POSTGRES_USER,
-            host: process.env.POSTGRES_HOST || "localhost",
-            database: process.env.POSTGRES_DATABASE,
-            password: process.env.POSTGRES_PASSWORD,
-            port: process.env.POSTGRES_PORT || "5432",
-        })
+        const client = new Client(DBCONFIG)
 
         await client.connect()
         return client
-        } catch (error) {
-            console.error("Failed to connect to db", error)
-            process.exit(1)
-        }
+    } catch (error) {
+        console.error("Failed to connect to db", error)
+        process.exit(1)
+    }
 }
 
 const createUserTable = async () => {
@@ -35,7 +36,7 @@ const createUserTable = async () => {
     const client = await connectToDb()
     await client.query(SQL)
     await client.end()
-    
+
 }
 
 const doesAdminExist = async () => {
