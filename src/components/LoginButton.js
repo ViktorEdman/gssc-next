@@ -1,5 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react"
 import { useState } from "react"
+import LoginForm from "./LoginForm"
 
 export default function Component() {
   const [loginVisible, setLoginVisible] = useState(false)
@@ -23,12 +24,10 @@ export default function Component() {
     <>
       Not signed in <br />
       {/* Todo - make the sign-in window a pop-up instead of redirecting  */}
-      <button onClick={() => /* toggleLogin() */
-    signIn()}>Sign in</button>
-      <div className="absolute bg-black rounded-lg mx-auto">{loginVisible
-        ? "Sign in!"
+      <button onClick={() => toggleLogin()}>Sign in</button>
+      {loginVisible
+        ? <LoginForm toggleLogin={toggleLogin}></LoginForm>
         : null}
-        </div>
     </>
   )
 }

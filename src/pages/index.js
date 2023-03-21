@@ -62,7 +62,7 @@ export default function Home({ data, date }) {
   return (
     <>
       <Layout>
-        <ul className={`w-full w-80 z-100 ${loading ? "animate-pulse" : null}`}>
+        <ul className={`w-full z-100 ${loading ? "animate-pulse" : null}`}>
           {serversData.map((server, index) => (
             <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} showMore={showMore[index]}/>
           ))}
