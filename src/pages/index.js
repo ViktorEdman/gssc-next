@@ -5,6 +5,7 @@ import Layout from '@/components/Layout'
 import { getServerSideData } from './api'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
+
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data, date }) {
