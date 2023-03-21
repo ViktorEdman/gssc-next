@@ -61,7 +61,6 @@ const deleteUser = async (id) => {
 const updateUserPassword = async (id, password) => {
     const hashedPassword = await bcrypt.hash(password, 10)
     const SQL = `UPDATE users SET password = '${hashedPassword}' WHERE id = ${id};`
-    console.log(SQL)
     const res = await pool.query(SQL)
     return res
 }
@@ -73,7 +72,7 @@ const initDb = async () => {
         console.log("Admin already exists") 
         console.log("Not creating admin account")
         if (!(await bcrypt.compare(ADMINPASSWORD, adminUser.password))) {
-            console.log("Updating admin password to", ADMINPASSWORD)
+            console.log("Updating admin password according to env variable")
             await updateUserPassword(adminUser.id, ADMINPASSWORD)
         }
     } else {
@@ -82,7 +81,6 @@ const initDb = async () => {
         const password = await bcrypt.hash(ADMINPASSWORD, 10)
         await createUser("admin", password, "admin")
     }
-    console.log(await getUserByName('admin'))
 }
 
 initDb()

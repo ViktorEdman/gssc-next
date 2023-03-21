@@ -101,7 +101,7 @@ export default function Home({ data, date }) {
 }
 
 export async function getStaticProps() {
-  console.log('Generating static props at ', Date())
+  // console.log('Generating static props at ', Date())
   const serverData = getServerSideData()
   const data = JSON.parse(JSON.stringify(serverData))
   const date = Date.now()

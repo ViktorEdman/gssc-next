@@ -15,15 +15,12 @@ export default function Component() {
   if (session) {
     return (
       <>
-        Signed in as {session.user.name} <br />
-        <button onClick={() => signOut()}>Sign out</button>
+        <button onClick={() => signOut()}>Sign out {session.user.name}</button>
       </>
     )
   }
   return (
     <>
-      Not signed in <br />
-      {/* Todo - make the sign-in window a pop-up instead of redirecting  */}
       <button onClick={() => toggleLogin()}>Sign in</button>
       {loginVisible
         ? <LoginForm toggleLogin={toggleLogin}></LoginForm>
