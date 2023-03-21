@@ -3,13 +3,18 @@ FROM node:18-alpine as builder
 
 # set working directory
 WORKDIR /app
-# copy source files
+# copy source manifestos
 COPY pnpm-lock.yaml .
 COPY package.json .
-COPY . .
+
 # install dependencies
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
+
+#Copy source files
+COPY . .
+
+
 # start app
 RUN pnpm run build
 

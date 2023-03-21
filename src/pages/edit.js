@@ -1,7 +1,9 @@
 import Layout from "@/components/Layout";
 import { getConfiguredServers } from "./api";
+import { useSession } from "next-auth/react";
 
 function Edit({ data }) {
+    const {data: session} = useSession()
     return (<>
         <Layout>
             <h2 className="mb-4
@@ -33,6 +35,8 @@ function Edit({ data }) {
                 ))}
                 </tbody>
             </table>
+            <div>User data:</div>
+            <pre>{JSON.stringify(session)}</pre>
         </Layout>
     </>);
 }

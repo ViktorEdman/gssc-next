@@ -3,7 +3,10 @@ const {  Pool } = pg
 import dotenv from "dotenv"
 import bcrypt from "bcrypt"
 
-dotenv.config()
+const ENVPATH = process.env.NODE_ENV === "development"
+                ? ".env.development"
+                : ".env"
+dotenv.config({path: ".env.development"})
 
 const ADMINPASSWORD = process.env.GSSC_ADMIN_PASSWORD || Math.random().toString(36).slice(-8)
 const DBCONFIG = {
