@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Header from "./Header"
 import Title from "./Title"
+import LoginButton from "./LoginButton"
 import { useRouter } from "next/router";
 
 function Layout({ children }) {
@@ -21,6 +22,7 @@ function Layout({ children }) {
                 >
                     Edit servers
                 </Link>
+                <LoginButton></LoginButton>
             </nav>
             {children}
         </main>
