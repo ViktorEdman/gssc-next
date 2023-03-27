@@ -13,12 +13,12 @@ function Layout({ children }) {
             <Title />
             <nav className="my-5">
                 <Link href="/"
-                    className={`mr-4 ${pathname === "/" ? "underline text-white" : null}`}
+                    className={`hover:text-white mr-4 ${pathname === "/" ? "underline text-white" : null}`}
                 >
                     Overview
                 </Link>
                 <Link href="/edit"
-                    className={`mr-4 ${pathname === "/edit" ? "underline text-white" : null}`}
+                    className={`hover:text-white mr-4 ${pathname === "/edit" ? "underline text-white" : null}`}
                 >
                     Edit servers
                 </Link>

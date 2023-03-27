@@ -15,13 +15,13 @@ export default function Component() {
   if (session) {
     return (
       <>
-        <button onClick={() => signOut()}>Sign out {session.user.name}</button>
+        <button className="hover:text-white" onClick={() => signOut()}>Sign out {session.user.name}</button>
       </>
     )
   }
   return (
     <>
-      <button onClick={() => toggleLogin()}>Sign in</button>
+      <button className="hover:text-white" onClick={() => toggleLogin()}>Sign in</button>
       {loginVisible
         ? <LoginForm toggleLogin={toggleLogin}></LoginForm>
         : null}

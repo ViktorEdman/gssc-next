@@ -40,17 +40,17 @@ export default function Home({ data, date }) {
   const updateData = () => {
     setLoading(true)
     fetch('/api')
-    .then((res) => res.json())
-    .then((data) => {
-      data.sort((a, b) => {
-        if (a.error !== undefined && b.error === undefined) return 1
-        if (a.error === undefined && b.error !== undefined) return -1
-        return 0
+      .then((res) => res.json())
+      .then((data) => {
+        data.sort((a, b) => {
+          if (a.error !== undefined && b.error === undefined) return 1
+          if (a.error === undefined && b.error !== undefined) return -1
+          return 0
+        })
+        setServersData(data)
+        setLastUpdate(new Date(Date.now()))
+        setLoading(false)
       })
-      setServersData(data)
-      setLastUpdate(new Date(Date.now()))
-      setLoading(false)
-    })
 
   }
 
@@ -64,32 +64,32 @@ export default function Home({ data, date }) {
       <Layout>
         <ul className={`w-full z-100 ${loading ? "animate-pulse" : null}`}>
           {serversData.map((server, index) => (
-            <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} showMore={showMore[index]}/>
+            <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} showMore={showMore[index]} />
           ))}
         </ul>
         <div className='text-stone-100'>Last update was at {
-        lastUpdate.toLocaleTimeString('sv-se', {timeZone: "CET"})
+          lastUpdate.toLocaleTimeString('sv-se', { timeZone: "CET" })
         }</div>
         {
-        loading?
-        <div className='text-stone-100'>Loading data... <LoadingSpinner/></div>
-        :null
+          loading ?
+            <div className='text-stone-100'>Loading data... <LoadingSpinner /></div>
+            : null
         }
-        
-        <button 
-        onClick={() => setDisplayRawData(!displayRawData)}
-        className="bg-blue-500 rounded px-2 py-2 my-5 text-white dark:bg-blue-800"
+
+        <button
+          onClick={() => setDisplayRawData(!displayRawData)}
+          className="bg-blue-500 rounded px-2 py-2 my-5 text-white dark:bg-blue-800"
         >
           {displayRawData
-          ? "Hide raw data"
-          : "Show raw data"}
+            ? "Hide raw data"
+            : "Show raw data"}
         </button>
         {displayRawData
-          ? 
+          ?
           <div className=' bg-black/40 rounded-xl py-2 px-2 text-stone-100'>
-          <code className='whitespace-pre-wrap max-w-lg break-words'>
-            {JSON.stringify(serversData, null, '\t')}
-          </code>
+            <code className='whitespace-pre-wrap max-w-lg break-words'>
+              {JSON.stringify(serversData, null, '\t')}
+            </code>
           </div>
 
           : null}

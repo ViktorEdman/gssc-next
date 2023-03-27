@@ -6,6 +6,9 @@ import bcrypt from "bcrypt"
 export const authOptions = {
   // Configure one or more authentication providers
   strategy: "jwt",
+  jwt: {
+    maxAge: 10
+  },
   providers: [
     CredentialsProvider({
         
