@@ -1,4 +1,3 @@
-
 FROM node:18-alpine as builder
 
 # set working directory
@@ -9,13 +8,14 @@ COPY package.json .
 
 # install dependencies
 RUN npm install -g pnpm
-RUN pnpm install --frozen-lockfile
+RUN pnpm install
 
 #Copy source files
 COPY . .
 
-
 # start app
+
+RUN pnpm prisma generate
 RUN pnpm run build
 
 FROM node:18-alpine as runner
@@ -30,5 +30,4 @@ COPY --from=builder /app/.next/ ./.next
 
 EXPOSE 3000
 
-RUN npm install -g pnpm
-CMD pnpm run start
+CMD npm run start
