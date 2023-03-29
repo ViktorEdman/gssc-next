@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt"
 
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.
@@ -25,4 +26,24 @@ export const getUserByName = async (username) => {
         }
     })
     return res;
+}
+
+export const createUser = async (username, password, role) => {
+    const hashedPassword = await bcrypt.hash(password, 10)
+    const res = await prisma.users.create({data: {name: username, password: hashedPassword, role: role}})
+    return res
+}
+
+export const deleteUser = async (username) => {
+    const res = await prisma.users.delete({
+        where: {
+            name: username
+        }
+    }) 
+    return res
+}
+
+export const getUsers = async () => {
+    const res = await prisma.users.findMany()
+    return res
 }
