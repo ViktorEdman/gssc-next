@@ -5,7 +5,6 @@ import Layout from '@/components/Layout'
 import { getServerSideData } from './api'
 import LoadingSpinner from '@/components/LoadingSpinner'
 
-
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data, date }) {
@@ -102,6 +101,7 @@ export default function Home({ data, date }) {
 
 export async function getStaticProps() {
   // console.log('Generating static props at ', Date())
+
   const serverData = getServerSideData()
   const data = JSON.parse(JSON.stringify(serverData))
   const date = Date.now()

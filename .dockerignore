@@ -6,3 +6,6 @@ postgresdata
 README.md
 .dockerignore
 .git
+.env.development
+.env.local
+.env.sample

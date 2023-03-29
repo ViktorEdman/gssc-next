@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import { getUserByName } from "@/lib/db.mjs";
+import { getUserByName } from "db";
 import bcrypt from "bcrypt"
 
 export const authOptions = {
@@ -28,6 +28,7 @@ export const authOptions = {
         // Add logic here to look up the user from the credentials supplied
        
         const user = await getUserByName(credentials.username)
+        console.log(user)
         if (await bcrypt.compare(credentials.password, user.password)) {
           // Any object returned will be saved in `user` property of the JWT
           return user
