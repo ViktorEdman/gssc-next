@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { getServerSideData } from './api'
 import LoadingSpinner from '@/components/LoadingSpinner'
+import ServerList from '@/components/ServerList'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,8 +20,6 @@ export default function Home({ data, date }) {
 
   // initiate serverdata with static props
   const [serversData, setServersData] = useState(data)
-  // Set showMore array to same size as number of servers
-  const [showMore, setShowMore] = useState(new Array(data.length).fill(false))
   // Timestam latest update from server
   const [lastUpdate, setLastUpdate] = useState(new Date(date))
   // Set whether to show raw data
@@ -28,13 +27,7 @@ export default function Home({ data, date }) {
   // animate loading new server data
   const [loading, setLoading] = useState(false)
 
-  const handleShowMore = (server) => {
-    const serverIndex = serversData.map(s => s.game).indexOf(server)
-    console.log(serverIndex)
-    let newShowMore = [...showMore]
-    newShowMore[serverIndex] = !showMore[serverIndex]
-    setShowMore(newShowMore)
-  }
+
 
   const updateData = () => {
     setLoading(true)
@@ -61,11 +54,9 @@ export default function Home({ data, date }) {
   return (
     <>
       <Layout>
-        <ul className={`w-full z-100 ${loading ? "animate-pulse" : null}`}>
-          {serversData.map((server, index) => (
-            <ServerInfo server={server} key={server.game} handleShowMore={handleShowMore} showMore={showMore[index]} />
-          ))}
-        </ul>
+        <ServerList
+        serversData={serversData}
+        loading={loading}/>
         <div className='text-stone-100'>Last update was at {
           lastUpdate.toLocaleTimeString('sv-se', { timeZone: "CET" })
         }</div>

@@ -1,5 +1,8 @@
-function ServerInfo({server, handleShowMore, showMore}) {
+import { useState } from "react";
+
+function ServerInfo({server}) {
     const {name, map, password} = server
+    const [showMore, setShowMore] = useState(false)
         
     
     return (
@@ -14,7 +17,7 @@ function ServerInfo({server, handleShowMore, showMore}) {
           
           onClick={(e) =>  {
             e.preventDefault()
-            handleShowMore(server.game)
+            setShowMore(!showMore)
           }}>
             <span className='green dot mr-2' />
             <span className=' text-stone-100	'>
