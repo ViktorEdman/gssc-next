@@ -1,4 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession,  signOut } from "next-auth/react"
 import { useState } from "react"
 import LoginForm from "./LoginForm"
 
@@ -8,8 +8,6 @@ export default function Component() {
     setLoginVisible(!loginVisible)
   }
 
-  //sign-in logic
-  //signIn("credentials", {redirect: false, username: usernameInput, password: passwordInput})
 
   const { data: session } = useSession()
   if (session) {
