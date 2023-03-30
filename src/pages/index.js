@@ -22,8 +22,6 @@ export default function Home({ data, date }) {
   const [serversData, setServersData] = useState(data)
   // Timestam latest update from server
   const [lastUpdate, setLastUpdate] = useState(new Date(date))
-  // Set whether to show raw data
-  const [displayRawData, setDisplayRawData] = useState(false)
   // animate loading new server data
   const [loading, setLoading] = useState(false)
 
@@ -66,23 +64,7 @@ export default function Home({ data, date }) {
             : null
         }
 
-        <button
-          onClick={() => setDisplayRawData(!displayRawData)}
-          className="bg-blue-500 rounded px-2 py-2 my-5 text-white dark:bg-blue-800"
-        >
-          {displayRawData
-            ? "Hide raw data"
-            : "Show raw data"}
-        </button>
-        {displayRawData
-          ?
-          <div className=' bg-black/40 rounded-xl py-2 px-2 text-stone-100'>
-            <code className='whitespace-pre-wrap max-w-lg break-words'>
-              {JSON.stringify(serversData, null, '\t')}
-            </code>
-          </div>
 
-          : null}
       </Layout>
     </>
   )
