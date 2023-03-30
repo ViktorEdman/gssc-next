@@ -8,13 +8,13 @@ COPY package.json .
 
 # install dependencies
 RUN npm install -g pnpm
-RUN pnpm install
+
 
 #Copy source files
 COPY . .
+RUN pnpm install
 
 # start app
-
 RUN pnpm prisma generate
 RUN pnpm run build
 
@@ -27,6 +27,7 @@ COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next/ ./.next
+COPY --from=builder /app/prisma/ ./prisma
 
 EXPOSE 3000
 

@@ -1,5 +1,6 @@
 node_modules
 postgresdata
+old_postgresdata
 .next
 .vscode
 .gitignore
