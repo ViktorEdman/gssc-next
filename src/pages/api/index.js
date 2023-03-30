@@ -1,4 +1,6 @@
 import gamedig from "gamedig"
+import NextCors from "nextjs-cors"
+
 export const servers = [
     {
         prettyName: "7 Days to Die",
@@ -77,6 +79,12 @@ export function getConfiguredServers() {
     return servers;
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
+    await NextCors(req, res, {
+        // Options
+        methods: ['GET'],
+        origin: '*',
+        optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+     });
     res.status(200).json(getServerSideData())
 }

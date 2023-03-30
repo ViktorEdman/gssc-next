@@ -1,4 +1,5 @@
 import {  createUser, deleteUser, getUsers } from "@/lib/prisma";
+import { getServerSession, authOptions } from "next-auth";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
@@ -28,6 +29,11 @@ async function postHandler(req, res) {
 }
 
 async function deleteHandler(req, res) {
+    const session = await getServerSession(req, res, authOptions)
+    if (!session || session.role !== "admin") {
+        res.status(403).json({success: false, message: "Unauthorized"})
+        return;
+    }
     let {username, password} = req.body
     try {
         const dbResponse = await deleteUser(username)
