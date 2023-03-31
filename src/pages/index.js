@@ -52,7 +52,6 @@ export default function Home({ data, date }) {
   return (
     <>
       <Layout>
-        <h1>Hot rebuild</h1>
         <ServerList
         serversData={serversData}
         loading={loading}/>

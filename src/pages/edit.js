@@ -1,4 +1,6 @@
 import Layout from "@/components/Layout";
+
+import ServerAdder from "@/components/ServerAdder";
 import { getConfiguredServers } from "./api";
 
 function Edit({ data }) {
@@ -23,16 +25,17 @@ function Edit({ data }) {
                     </tr>
                 </thead>
                 <tbody >
-                {data.map(({ prettyName, type, host, port }) => (
-                    <tr key={host+":"+port}>
-                        <td>{prettyName}</td>
-                        <td>{type}</td>
-                        <td>{host}</td>
-                        <td>{port}</td>
-                    </tr>
-                ))}
+                    {data.map(({ prettyName, type, host, port }) => (
+                        <tr key={host + ":" + port} className="h-5">
+                            <td>{prettyName}</td>
+                            <td>{type}</td>
+                            <td>{host}</td>
+                            <td>{port}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
+        <ServerAdder/>
         </Layout>
     </>);
 }

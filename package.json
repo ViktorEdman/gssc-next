@@ -5,23 +5,21 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "npx prisma migrate dev && npx prisma db seed && next start",
+    "start": "npx prisma migrate deploy && next start",
     "lint": "next lint"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "dns": "^0.2.2",
-    "dotenv": "^16.0.3",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
     "gamedig": "^4.0.6",
     "next": "13.2.4",
     "next-auth": "^4.20.1",
     "nextjs-cors": "^2.1.2",
-    "pg": "^8.10.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "socket.io": "^4.6.1"
+    "react-select": "^5.7.2"
   },
   "devDependencies": {
     "@prisma/client": "^4.12.0",
