@@ -1,6 +1,7 @@
 import gamedig from "gamedig"
 import NextCors from "nextjs-cors"
 
+
 export const servers = [
     {
         prettyName: "7 Days to Die",
