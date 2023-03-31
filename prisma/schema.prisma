@@ -16,3 +16,11 @@ model users {
   password    String
   role        String
 }
+
+model gameservers {
+    id          Int @id @default(autoincrement()) 
+    name        String @unique
+    gametype    String
+    host        String
+    port        Int
+}

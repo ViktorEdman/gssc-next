@@ -6,10 +6,12 @@ services:
       context: .
       dockerfile: Dockerfile
       target: runner
+
     networks:
       - web
       - backend
     container_name: gssc-next
+    restart: always
     dns:
       - 1.1.1.1
     env_file:
@@ -18,38 +20,23 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/gssc?schema=public
     depends_on:
       - db
+
   db:
     image: postgres:alpine
     restart: always
     env_file:
       - ./.env
     volumes:
-      - ./postgresdata:/var/lib/postgresql/data
+      - postgresdata:/var/lib/postgresql/data
     ports:
       - 5432:5432
     networks:
       - backend
-  db-admin:
-    image: michalhosna/adminer
-    restart: always
-    networks:
-      - backend
-    ports:
-      - 8080:8080
-    env_file:
-      - ./.env
-    environment:
-      ADMINER_DB: "${POSTGRES_DB}"
-      ADMINER_DRIVER: pgsql
-      ADMINER_PASSWORD: "${POSTGRES_PASSWORD}"
-      ADMINER_SERVER: db
-      ADMINER_USERNAME: ${POSTGRES_USER}
-      ADMINER_AUTOLOGIN: 1
-      ADMINER_NAME: DB admin
-    depends_on:
-      - db
 
 networks:
   web:
     external: true
   backend:
+
+volumes:
+  postgresdata:
