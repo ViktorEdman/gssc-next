@@ -13,7 +13,10 @@ export default function Component() {
   if (session) {
     return (
       <>
-        <button className="hover:text-white" onClick={() => signOut()}>Sign out {session.user.name}</button>
+        <button className="hover:text-white" onClick={() => {
+          setLoginVisible(false)
+          signOut({redirect: false})
+          }}>Sign out {session.user.name}</button>
       </>
     )
   }

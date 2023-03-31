@@ -1,9 +1,12 @@
 import Layout from "@/components/Layout";
-
 import ServerAdder from "@/components/ServerAdder";
-import { getConfiguredServers } from "./api";
+import { useSession,  } from "next-auth/react";
 
-function Edit({ data }) {
+import { getConfiguredServers } from "./api";
+import prisma from "@/lib/prisma";
+
+function Edit({ data, dbData }) {
+    const {data: session}= useSession()
     return (<>
         <Layout>
             <h2 className="mb-4
@@ -35,16 +38,19 @@ function Edit({ data }) {
                     ))}
                 </tbody>
             </table>
-        <ServerAdder/>
+        {session?.user.name === "admin" ? <ServerAdder/> : ""}
+        
         </Layout>
     </>);
 }
 
 export async function getStaticProps() {
     const data = getConfiguredServers()
+    const dbData = await prisma.gameservers.findMany()
     return {
         props: {
-            data
+            data,
+            dbData
         },
         revalidate: 30
     }
