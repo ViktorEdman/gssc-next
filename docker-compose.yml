@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.5'
 
 services:
   gssc:
@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       target: runner
+      network: backend
 
     networks:
       - web
@@ -37,6 +38,7 @@ networks:
   web:
     external: true
   backend:
+    name: backend
 
 volumes:
   postgresdata:
