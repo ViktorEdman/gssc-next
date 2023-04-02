@@ -1,8 +1,10 @@
-import { getServerSession } from "next-auth/next"
-import { authOptions } from './auth/[...nextauth]'
+import { getServerSession } from "next-auth/next" 
+import { authOptions } from './auth/[...nextauth]' 
+import { getToken } from "next-auth/jwt"
+const secret = process.env.NEXTAUTH_SECRET
 
-export default async function handler(req, res) {
-    const session = await getServerSession(req, res, authOptions)
-    if (!session) res.status(401).json({response: "forbidden, come back when you sign in"})
-    if (session) res.status(200).json({response: "this is allowed"})
+
+export default async function handler(req, res) { 
+    const session = await getToken({req, secret})
+    res.status(200).json({response: "this is allowed", session})
 }

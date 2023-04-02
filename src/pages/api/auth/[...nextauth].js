@@ -9,8 +9,22 @@ export const authOptions = {
   jwt: {
     maxAge: 10
   },
+  callbacks: {
+    async jwt({token, user}) {
+        if (user) {
+          token.role = user.role
+        }
+        return token
+    },
+    session ({session, token}) {
+      if (token && session.user) {
+        session.user.role = token.role;
+      }
+      return session
+    }
+   },
   providers: [
-    CredentialsProvider({
+        CredentialsProvider({
       async authorize(credentials, req) {
         if (!credentials.username) return null
         // Add logic here to look up the user from the credentials supplied
