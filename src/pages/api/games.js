@@ -3,42 +3,73 @@ import NextCors from "nextjs-cors";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from './auth/[...nextauth]'
 
+
+
 export default async function handler(req, res) {
-    const dbData = await prisma.gameservers.findMany()
+    
+    const session = await getServerSession(req, res, authOptions)
+    
     await NextCors(req, res, {
         // Options
         methods: ['GET'],
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
      });
-     if (req.method === "POST") {
-        const session = await getServerSession(req, res, authOptions)
+     if (req.method === "DELETE") {
+        const {id} = JSON.parse(req.body)
         if (!session){
-             res.status(401).json({response: "forbidden, come back when you sign in"})
+            res.status(401).json({error: "Unauthenticated"})
+            return
+           }
+       if (session.user.role !== "admin") {
+           res.status(403).json({error: "Unauthorized"})
+           return
+       }
+       try {
+            const dbRes = await prisma.gameservers.delete({
+                where: {
+                    id: id
+                }
+            })
+            res.status(204).end()
+            return
+       } catch (error) {
+            res.status(400).json({response: "Could not delete server"})
+            return
+       }
+     }
+     if (req.method === "POST") {
+        const {name, game, host, port} = JSON.parse(req.body)
+        if (!session){
+             res.status(401).json({error: "Unauthenticated"})
              return
             }
-        if (session) {
-            console.log(session)
-            res.status(201).json({response: "created"})
+        if (session.user.role !== "admin") {
+            res.status(403).json({error: "Unauthorized"})
             return
         }
-        const {name, game, host, port} = req.body
+        
+        console.log(req.body)
         try {
             const dbRes = await prisma.gameservers.create({
                 data: {
-                        name,
-                        game,
-                        host,
-                        port
+                        name: name,
+                        game: game,
+                        host: host,
+                        port: Number(port)
                     }
                 })
-                res.status(201).json(dbRes)
-            return
+                res.status(201).json({response: "created", result: dbRes})
+                return
             
         } catch (error) {
-            res.status(400).send("Could not create game server")
+            console.log(error)
+            res.status(400).json({response: "Could not create game server", error: error})
+            return
         }
         
     }
+    const dbData = await prisma.gameservers.findMany()
     res.status(200).json(dbData)
+    return
 }
