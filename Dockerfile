@@ -5,7 +5,7 @@ FROM pnpm as deps
 WORKDIR /app
 COPY pnpm-lock.yaml .
 COPY package.json .
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 FROM pnpm as builder
 WORKDIR /app
@@ -13,7 +13,6 @@ COPY --from=deps /app/pnpm-lock.yaml .
 COPY --from=deps /app/package.json .
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm install
 RUN pnpm prisma generate
 RUN pnpm run build
 

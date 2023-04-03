@@ -38,8 +38,8 @@ function Edit({ data, dbData }) {
                     ))}
                 </tbody>
             </table>
-        {session?.user.name === "admin" ? <ServerAdder/> : ""}
-        
+        {session?.user.role === "admin" ? <ServerAdder/> : ""}
+        {session? <pre>{JSON.stringify(session, null, 2)} </pre> : ""}
         </Layout>
     </>);
 }

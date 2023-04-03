@@ -4,20 +4,21 @@ import { getUserByName } from "db";
 import bcrypt from "bcrypt"
 
 export const authOptions = {
-  // Configure one or more authentication providers
-  strategy: "jwt",
-  jwt: {
-    maxAge: 10
+  session: {
+    maxAge: 60 * 60 * 24 * 2,
+
   },
   callbacks: {
     async jwt({token, user}) {
         if (user) {
+          token.id = user.id
           token.role = user.role
         }
         return token
     },
     session ({session, token}) {
       if (token && session.user) {
+        session.user.id = token.id;
         session.user.role = token.role;
       }
       return session
