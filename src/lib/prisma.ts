@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"
 // Learn more:
 // https://pris.ly/d/help/next-js-best-practices
 
-let prisma; 
+let prisma: PrismaClient; 
 
 if (process.env.NODE_ENV === "production") {
     prisma = new PrismaClient();
@@ -42,6 +42,7 @@ export const deleteUser = async (username) => {
     }) 
     return res
 }
+
 
 export const getUsers = async () => {
     const res = await prisma.users.findMany()

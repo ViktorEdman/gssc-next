@@ -1,12 +1,10 @@
-import ServerInfo from '@/components/ServerInfo'
-import { Inter } from 'next/font/google'
+
 import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { getServerSideData } from './api'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ServerList from '@/components/ServerList'
 
-const inter = Inter({ subsets: ['latin'] })
 
 export default function Home({ data, date }) {
 
