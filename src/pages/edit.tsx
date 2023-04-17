@@ -36,7 +36,8 @@ function Edit({ data }) {
                         <th scope="col">Game</th>
                         <th scope="col">Host</th>
                         <th scope="col"> Port</th>
-                       {session?.user?.role === "admin"? <th scope="col"> Actions</th>: "" }
+                       {//@ts-ignore
+                       session?.user?.role === "admin"? <th scope="col"> Actions</th>: "" }
                     </tr>
                 </thead>
                 <tbody >
@@ -46,7 +47,8 @@ function Edit({ data }) {
                             <td>{game}</td>
                             <td>{host}</td>
                             <td>{port}</td>
-                            {session?.user?.role === "admin"? 
+                            {//@ts-ignore
+                            session?.user?.role === "admin"? 
                             <td> 
                                 <button 
                                 className="px-1"
@@ -59,7 +61,8 @@ function Edit({ data }) {
                     ))}
                 </tbody>
             </table>
-        {session?.user?.role === "admin" ? <ServerAdder setServers={setServers}/> : ""}
+        {//@ts-ignore
+        session?.user?.role === "admin" ? <ServerAdder setServers={setServers}/> : ""}
         </Layout>
     </>);
 }

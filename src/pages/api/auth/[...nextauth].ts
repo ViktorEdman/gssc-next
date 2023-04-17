@@ -26,6 +26,7 @@ export const authOptions = {
    },
   providers: [
         CredentialsProvider({
+      //@ts-ignore
       async authorize(credentials, req) {
         if (!credentials.username) return null
         // Add logic here to look up the user from the credentials supplied
