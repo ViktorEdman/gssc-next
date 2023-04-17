@@ -3,6 +3,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getUserByName } from "db";
 import bcrypt from "bcrypt"
 
+type Session = {
+  id: number,
+  name: string,
+  role: string
+}
+
 export const authOptions = {
   session: {
     maxAge: 60 * 60 * 24 * 2,
@@ -25,9 +31,10 @@ export const authOptions = {
     }
    },
   providers: [
+    //@ts-ignore
         CredentialsProvider({
       //@ts-ignore
-      async authorize(credentials, req) {
+      async authorize(credentials, req): Session {
         if (!credentials.username) return null
         // Add logic here to look up the user from the credentials supplied
        

@@ -33,6 +33,10 @@ function ServerAdder({setServers}) {
 
             const serverRes = await fetch("/api/games")
             const serverData = await serverRes.json()
+            name.value = "";
+            host.value = "";
+            port.value = "";
+            setGame("");
             setServers(serverData);
         }}
         className="grid grid-cols-2 gap-1 text-xs text-black w-full justify-left">

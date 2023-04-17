@@ -47,7 +47,7 @@ function Edit({ data }) {
                             <td>{game}</td>
                             <td>{host}</td>
                             <td>{port}</td>
-                            {//@ts-ignore
+                            { //@ts-ignore
                             session?.user?.role === "admin"? 
                             <td> 
                                 <button 
