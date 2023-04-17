@@ -1,6 +1,11 @@
 import GamePicker from "@/components/GamePicker";
-import { sendEtagResponse } from "next/dist/server/send-payload";
 import {useState} from "react"
+
+type serverForm = HTMLFormControlsCollection & {
+    name: HTMLInputElement,
+    host: HTMLInputElement,
+    port: HTMLInputElement
+}
 
 function ServerAdder({setServers}) {
     const [game, setGame] = useState(null)
@@ -11,12 +16,13 @@ function ServerAdder({setServers}) {
         <form 
         onSubmit={async (event) => {
             event.preventDefault()
-            const elements = event.target.elements
+            if (!(event.target instanceof HTMLFormElement)) return
+            const {name, host, port} = event.target.elements as serverForm
             const formData = {
-                name: elements.name.value,
+                name: name.value,
                 game,                
-                host: elements.host.value,
-                port: elements.port.value
+                host: host.value,
+                port: port.value
             }
             const res = await fetch("/api/games", {method: "POST", body: JSON.stringify(formData)})
             if (!res.ok) {

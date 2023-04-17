@@ -1,5 +1,5 @@
-const validGames = [
 
+const validGames = [
     { type: "7d2d", name: "7 Days to Die (2013)" },
     { type: "ageofchivalry", name: "Age of Chivalry (2007)" },
     { type: "aoe2", name: "Age of Empires 2 (1999)" },
@@ -10,26 +10,21 @@ const validGames = [
     { type: "atlas", name: "Atlas (2018)" },
     { type: "avp2", name: "Aliens versus Predator 2 (2001)" },
     { type: "avp2010", name: "Aliens vs. Predator (2010)" },
-
     { type: "americasarmy", name: "America's Army (2002)" },
     { type: "americasarmy2", name: "America's Army 2 (2003)" },
     { type: "americasarmy3", name: "America's Army 3 (2009)" },
     { type: "americasarmypg", name: "America's Army: Proving Grounds (2015)" },
-
     { type: "arcasimracing", name: "Arca Sim Racing (2008)" },
-
     { type: "arma", name: "ARMA: Armed Assault (2007)" },
     { type: "arma2", name: "ARMA 2 (2009)" },
     { type: "arma2oa", name: "ARMA 2: Operation Arrowhead (2010)" },
     { type: "armacwa", name: "ARMA: Cold War Assault (2011)" },
     { type: "armar", name: "ARMA: Resistance (2011)" },
     { type: "arma3", name: "ARMA 3 (2013)" },
-
     { type: "armagetron", name: "Armagetron Advanced (2001)" },
     { type: "baldursgate", name: "Baldur's Gate (1998)" },
     { type: "barotrauma", name: "Barotrauma (2019)" },
     { type: "bat1944", name: "Battalion 1944 (2018)" },
-
     { type: "bf1942", name: "Battlefield 1942 (2002)" },
     { type: "bfv", name: "Battlefield Vietnam (2004)" },
     { type: "bf2", name: "Battlefield 2 (2005)" },
@@ -38,12 +33,10 @@ const validGames = [
     { type: "bf3", name: "Battlefield 3 (2011)" },
     { type: "bf4", name: "Battlefield 4 (2013)" },
     { type: "bfh", name: "Battlefield Hardline (2015)" },
-
     { type: "breach", name: "Breach (2011)" },
     { type: "breed", name: "Breed (2004)" },
     { type: "brink", name: "Brink (2011)" },
     { type: "buildandshoot", name: "Build and Shoot / Ace of Spades Classic (2012)" },
-
     { type: "cod", name: "Call of Duty (2003)" },
     { type: "coduo", name: "Call of Duty: United Offensive (2004)" },
     { type: "cod2", name: "Call of Duty 2 (2005)" },
@@ -52,7 +45,6 @@ const validGames = [
     { type: "codwaw", name: "Call of Duty: World at War (2008)" },
     { type: "codmw2", name: "Call of Duty: Modern Warfare 2 (2009)" },
     { type: "codmw3", name: "Call of Duty: Modern Warfare 3 (2011)" },
-
     { type: "callofjuarez", name: "Call of Juarez (2006)" },
     { type: "chaser", name: "Chaser (2003)" },
     { type: "chrome", name: "Chrome (2003)" },
@@ -62,20 +54,16 @@ const validGames = [
     { type: "conanexiles", name: "Conan Exiles (2018)" },
     { type: "contagion", name: "Contagion (2011)" },
     { type: "contactjack", name: "Contract J.A.C.K. (2003)" },
-
     { type: "cs15", name: "Counter-Strike 1.5 (2002)" },
     { type: "cs16", name: "Counter-Strike 1.6 (2003)" },
     { type: "cs2d", name: "Counter-Strike: 2D (2004)" },
     { type: "cscz", name: "Counter-Strike: Condition Zero (2004)" },
     { type: "css", name: "Counter-Strike: Source (2004)" },
     { type: "csgo", name: "Counter-Strike: Global Offensive (2012)" },
-
     { type: "crossracing", name: "Cross Racing Championship Extreme 2005 (2005)" },
-
     { type: "crysis", name: "Crysis (2007)" },
     { type: "crysiswars", name: "Crysis Wars (2008)" },
     { type: "crysis2", name: "Crysis 2 (2011)" },
-
     { type: "daikatana", name: "Daikatana (2000)" },
     { type: "dmomam", name: "Dark Messiah of Might and Magic (2006)" },
     { type: "darkesthour", name: "Darkest Hour: Europe '44-'45 (2008)" },
@@ -152,7 +140,6 @@ const validGames = [
     { type: "m2mp", name: "Mafia II - Multiplayer (2010)" },
     { type: "m2o", name: "Mafia II - Online (2010)" },
     { type: "medievalengineers", name: "Medieval Engineers (2015)" },
-
     { type: "mohaa", name: "Medal of Honor: Allied Assault (2002)" },
     { type: "mohsh", name: "Medal of Honor: Allied Assault Spearhead (2002)" },
     { type: "mohbt", name: "Medal of Honor: Allied Assault Breakthrough (2003)" },
@@ -160,10 +147,8 @@ const validGames = [
     { type: "mohab", name: "Medal of Honor: Airborne (2007)" },
     { type: "moh2010", name: "Medal of Honor (2010)" },
     { type: "mohwf", name: "Medal of Honor: Warfighter (2012)" },
-
     { type: "minecraft,minecraftping", name: "Minecraft (2009)" },
     { type: "minecraftpe,minecraftbe", name: "Minecraft: Bedrock Edition (2011)" },
-
     { type: "mnc", name: "Monday Night Combat (2011)" },
     { type: "mordhau", name: "Mordhau (2019)" },
     { type: "mtavc", name: "Grand Theft Auto: Vice City - Multi Theft Auto (2002)" },
@@ -194,19 +179,15 @@ const validGames = [
     { type: "primalcarnage", name: "Primal Carnage: Extinction" },
     { type: "prbf2", name: "Project Reality: Battlefield 2 (2005)" },
     { type: "przomboid", name: "Project Zomboid" },
-
     { type: "quake1", name: "Quake 1: QuakeWorld (1996)" },
     { type: "quake2", name: "Quake 2 (1997)" },
     { type: "quake3", name: "Quake 3: Arena (1999)" },
     { type: "quake4", name: "Quake 4 (2005)" },
     { type: "quakelive", name: "Quake Live (2010)" },
-
     { type: "ragdollkungfu", name: "Rag Doll Kung Fu" },
-
     { type: "r6", name: "Rainbow Six" },
     { type: "r6roguespear", name: "Rainbow Six 2: Rogue Spear" },
     { type: "r6ravenshield", name: "Rainbow Six 3: Raven Shield" },
-
     { type: "rallisportchallenge", name: "RalliSport Challenge" },
     { type: "rallymasters", name: "Rally Masters" },
     { type: "redorchestra", name: "Red Orchestra" },
@@ -235,7 +216,6 @@ const validGames = [
     { type: "sof", name: "Soldier of Fortune" },
     { type: "sof2", name: "Soldier of Fortune 2" },
     { type: "stalker", name: "S.T.A.L.K.E.R." },
-
     { type: "stbc", name: "Star Trek: Bridge Commander" },
     { type: "stvef", name: "Star Trek: Voyager - Elite Force" },
     { type: "stvef2", name: "Star Trek: Voyager - Elite Force 2" },
@@ -245,7 +225,6 @@ const validGames = [
     { type: "swjk", name: "Star Wars Jedi Knight: Jedi Academy (2003)" },
     { type: "swjk2", name: "Star Wars Jedi Knight II: Jedi Outcast (2002)" },
     { type: "swrc", name: "Star Wars: Republic Commando" },
-
     { type: "starbound", name: "Starbound" },
     { type: "starmade", name: "StarMade" },
     { type: "starsiege", name: "Starsiege (2009)" },
@@ -274,14 +253,12 @@ const validGames = [
     { type: "tron20", name: "Tron 2.0" },
     { type: "turok2", name: "Turok 2" },
     { type: "universalcombat", name: "Universal Combat" },
-
     { type: "unreal", name: "Unreal" },
     { type: "unturned", name: "unturned" },
     { type: "ut", name: "Unreal Tournament" },
     { type: "ut2003", name: "Unreal Tournament 2003" },
     { type: "ut2004", name: "Unreal Tournament 2004" },
     { type: "ut3", name: "Unreal Tournament 3" },
-
     { type: "urbanterror", name: "Urban Terror" },
     { type: "v8supercar", name: "V8 Supercar Challenge" },
     { type: "valheim", name: "Valheim (2021)" },

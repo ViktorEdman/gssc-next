@@ -1,6 +1,5 @@
 import validGames from "@/lib/validGames";
 import Select from "react-select";
-import { useState } from "react";
 
 function GamePicker({setGame}) {
     return (
