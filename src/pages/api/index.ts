@@ -41,7 +41,12 @@ export const servers = [
 ]
 let pollingStatus = false
 
-let serverData;
+let serverData = [
+    {
+        game: "N/A",
+        error: "No server data retrieved yet."
+    }
+];
 
 (async () => {
     serverData = await retrieveServerData(servers)
