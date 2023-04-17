@@ -1,5 +1,6 @@
 import {  createUser, deleteUser, getUsers } from "@/lib/prisma";
-import { getServerSession, authOptions } from "next-auth";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(req, res) {
     if (req.method === "POST") {

@@ -3,12 +3,11 @@ import ServerAdder from "@/components/ServerAdder";
 import { useSession,  } from "next-auth/react";
 import {useState} from "react"
 
-/* import { getConfiguredServers } from "./api"; */
 import prisma from "@/lib/prisma";
 
-function Edit({ data, dbData }) {
+function Edit({ data }) {
     const {data: session}= useSession()
-    const [servers, setServers] =  useState(dbData)
+    const [servers, setServers] =  useState(data)
 
     const updateData = async () => {
         const res = await fetch("/api/games")
@@ -30,27 +29,6 @@ function Edit({ data, dbData }) {
               text-gray-900
               dark:text-white"
             >Currently monitored servers</h2>
-
-{/*             <table className="w-full text-sm text-left text-slate-300">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Type</th>
-                        <th scope="col">Hostname</th>
-                        <th scope="col"> Port</th>
-                    </tr>
-                </thead>
-                <tbody >
-                    {data.map(({ prettyName, type, host, port }) => (
-                        <tr key={host + ":" + port} className="h-5">
-                            <td>{prettyName}</td>
-                            <td>{type}</td>
-                            <td>{host}</td>
-                            <td>{port}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table> */}
                         <table className="w-full text-sm text-left text-slate-300">
                 <thead>
                     <tr>
@@ -88,12 +66,10 @@ function Edit({ data, dbData }) {
 
 
 export async function getStaticProps() {
-/*     const data = getConfiguredServers() */
-    const dbData = await prisma.gameservers.findMany()
+    const data = await prisma.gameservers.findMany()
     return {
         props: {
-           /*  data, */
-            dbData
+            data
         },
         revalidate: 30
     }
