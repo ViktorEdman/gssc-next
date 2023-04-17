@@ -41,10 +41,14 @@ export const servers = [
 ]
 let pollingStatus = false
 
-let serverData = await retrieveServerData(servers)
+let serverData;
+
+(async () => {
+    serverData = await retrieveServerData(servers)
+})()
+
 setInterval(async () => {
     if (pollingStatus === true) {
-        // console.log("Polling loop is running, retrieving data at", Date())
         const response = await retrieveServerData(servers)
         serverData = response
 
@@ -68,7 +72,9 @@ export async function retrieveServerData(servers) {
 
     })
     const responses = await Promise.allSettled(requests)
-    return responses.map(response => response.value)
+    return responses.map(response => {
+        if (response.status === "fulfilled") return response.value
+    })
 }
 
 export function getServerSideData() {
