@@ -19,7 +19,7 @@ model users {
 
 model gameservers {
     id          Int @id @default(autoincrement()) 
-    name        String @unique
+    name        String
     game        String
     host        String
     port        Int
