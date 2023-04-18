@@ -57,6 +57,7 @@ function ServerAdder({ setServers }) {
                             className='w-full px-3 h-full'
                             value={name}
                             onChange={(e) => setName(e.target.value)}
+                            required
                         />
                     </div>
 
@@ -69,6 +70,7 @@ function ServerAdder({ setServers }) {
                             value={host}
                             ref={hostRef}
                             onChange={(e) => setHost(e.target.value)}
+                            required
                         />
                     </div>
                     <div>
@@ -81,6 +83,7 @@ function ServerAdder({ setServers }) {
                             className='w-full py-2 px-3 leading-2 h-full'
                             value={port}
                             onChange={(e) => setPort(e.target.value)}
+                            required
                         />
                     </div>
                     <button className='bg-blue-500 col-span-2 mx-auto w-16 text-xl rounded-2xl text-white'>

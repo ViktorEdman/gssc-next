@@ -3,7 +3,6 @@ import Layout from "@/components/Layout";
 import { retrieveServerData } from "./api";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import ServerList from "@/components/ServerList";
-import { cache } from "@/pages/api"
 
 export default function Home({ data, date }) {
     //Sort servers into online first, offline second
@@ -65,19 +64,7 @@ export default function Home({ data, date }) {
 
 export async function getStaticProps() {
     const date = Date.now();
-    if (cache.has("statuses")) {
-        const response = JSON.parse(cache.get("statuses"))
-        const data = response
-        return {
-            props: {
-                data,
-                date,
-            },
-            revalidate: 60,
-        };
-    }
     const serverData = await retrieveServerData();
-    cache.set("statuses", JSON.stringify(serverData))
     const data = JSON.parse(JSON.stringify(serverData));
     return {
         props: {

@@ -12,12 +12,15 @@ function GamePicker({setGame, setPort, setName, hostRef}) {
             const matchingGame = validGames.find(game => game.type === e.value)
             if (matchingGame.port) {
                 setPort(matchingGame.port)
-            }            
+            } else {
+                setPort("")
+            }      
             setName(matchingGame.name)
             setGame(e.value)
             hostRef.current.focus()
         }}
         placeholder="Game"
+        required
         />
         </>
     );
