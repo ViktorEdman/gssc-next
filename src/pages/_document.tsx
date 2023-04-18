@@ -6,11 +6,9 @@ export default function Document() {
       <Head />
       <body className="
                   bg-gradient-to-b
-                  from-serverYellow
-                  to-serverOrange
                   dark:bg-gradient-to-t
-                  dark:from-[#d1138f]
-                  dark:to-[#183d88]
+                  from-[#d1138f]
+                  to-[#183d88]
                   bg-cover
                   bg-repeat-x
 

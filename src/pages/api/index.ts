@@ -1,44 +1,10 @@
+import prisma from "@/lib/prisma";
 import gamedig from "gamedig"
 import NextCors from "nextjs-cors"
 
 
-export const servers = [
-    {
-        prettyName: "7 Days to Die",
-        type: "7d2d",
-        host: "edman.se",
-        port: 26900
 
-    },
-    {
-        prettyName: "Rust",
-        type: "rust",
-        host: "edman.se",
-        port: 28000
 
-    },
-    {
-        prettyName: "Minecraft",
-        type: "minecraft",
-        host: "edman.se",
-        port: 25565
-
-    },
-    {
-        prettyName: "Minecraft BE",
-        type: "minecraftbe",
-        host: "edman.se",
-        port: 19666
-
-    },
-    {
-        prettyName: "Valheim",
-        type: "valheim",
-        host: "edman.se",
-        port: 2456
-
-    }
-]
 let pollingStatus = false
 
 let serverData = [
@@ -49,27 +15,33 @@ let serverData = [
 ];
 
 (async () => {
-    serverData = await retrieveServerData(servers)
+    serverData = await retrieveServerData()
 })()
 
 setInterval(async () => {
     if (pollingStatus === true) {
-        const response = await retrieveServerData(servers)
+        const response = await retrieveServerData()
         serverData = response
 
     }
     pollingStatus = false
 }, 30000)
 
-export async function retrieveServerData(servers) {
+export async function retrieveServerData() {
+    const servers = await prisma.gameservers.findMany()
     const requests = servers.map(async server => {
+        const {game: type, host, port} = server
         try {
-            const response = await gamedig.query(server)
-            response.game = server.prettyName
+            const response = await gamedig.query({
+                type,
+                host,
+                port
+            })
+            response.game = server.name
             return response
         } catch (error) {
             return ({
-                game: server.prettyName,
+                game: server.name,
                 error: "Upstream server is not responding",
                 rawError: JSON.stringify(error)
             })
@@ -87,7 +59,8 @@ export function getServerSideData() {
     return serverData;
 }
 
-export function getConfiguredServers() {
+export async function getConfiguredServers() {
+    const servers = await prisma.gameservers.findMany()
     return servers;
 }
 
