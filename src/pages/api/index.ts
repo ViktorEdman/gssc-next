@@ -1,6 +1,9 @@
 import prisma from "@/lib/prisma";
 import gamedig from "gamedig"
 import NextCors from "nextjs-cors"
+import  TTLCache from "@isaacs/ttlcache"
+
+const cache = new TTLCache({max: 1, ttl: 30000})
 
 
 export async function retrieveServerData() {
@@ -39,6 +42,13 @@ export default async function handler(req, res) {
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
      });
-     const response = await retrieveServerData()
+    if (cache.has("statuses")) {
+        const response = JSON.parse(cache.get("statuses"))
+        res.status(200).json(response)
+        return;
+    }
+    const response = await retrieveServerData()
+    cache.set("statuses", JSON.stringify(response))
     res.status(200).json(response)
+    return;
 }
