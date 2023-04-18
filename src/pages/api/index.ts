@@ -3,30 +3,6 @@ import gamedig from "gamedig"
 import NextCors from "nextjs-cors"
 
 
-
-
-let pollingStatus = false
-
-let serverData = [
-    {
-        game: "N/A",
-        error: "No server data retrieved yet."
-    }
-];
-
-(async () => {
-    serverData = await retrieveServerData()
-})()
-
-setInterval(async () => {
-    if (pollingStatus === true) {
-        const response = await retrieveServerData()
-        serverData = response
-
-    }
-    pollingStatus = false
-}, 30000)
-
 export async function retrieveServerData() {
     const servers = await prisma.gameservers.findMany()
     const requests = servers.map(async server => {
@@ -54,15 +30,7 @@ export async function retrieveServerData() {
     })
 }
 
-export function getServerSideData() {
-    pollingStatus = true
-    return serverData;
-}
 
-export async function getConfiguredServers() {
-    const servers = await prisma.gameservers.findMany()
-    return servers;
-}
 
 export default async function handler(req, res) {
     await NextCors(req, res, {
@@ -71,5 +39,6 @@ export default async function handler(req, res) {
         origin: '*',
         optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
      });
-    res.status(200).json(getServerSideData())
+     const response = await retrieveServerData()
+    res.status(200).json(response)
 }

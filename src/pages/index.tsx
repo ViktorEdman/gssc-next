@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react'
 import Layout from '@/components/Layout'
-import { getServerSideData } from './api'
+import { retrieveServerData } from './api'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ServerList from '@/components/ServerList'
 
@@ -73,7 +73,7 @@ export default function Home({ data, date }) {
 export async function getStaticProps() {
   // console.log('Generating static props at ', Date())
 
-  const serverData = getServerSideData()
+  const serverData = await retrieveServerData()
   const data = JSON.parse(JSON.stringify(serverData))
   const date = Date.now()
   return {
