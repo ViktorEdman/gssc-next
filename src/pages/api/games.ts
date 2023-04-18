@@ -2,6 +2,7 @@ import prisma from "db"
 import NextCors from "nextjs-cors";
 import { getServerSession } from "next-auth/next"
 import { authOptions } from './auth/[...nextauth]'
+import { cache } from "./index";
 
 
 
@@ -31,6 +32,7 @@ export default async function handler(req, res) {
                     id: id
                 }
             })
+            cache.delete("statuses")
             res.status(204).end()
             return
        } catch (error) {
@@ -59,6 +61,7 @@ export default async function handler(req, res) {
                         port: Number(port)
                     }
                 })
+                cache.delete("statuses")
                 res.status(201).json({response: "created", result: dbRes})
                 return
             
