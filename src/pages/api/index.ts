@@ -3,7 +3,7 @@ import gamedig from "gamedig"
 import NextCors from "nextjs-cors"
 import  TTLCache from "@isaacs/ttlcache"
 
-const cache = new TTLCache({max: 1, ttl: 30000})
+export const cache = new TTLCache({max: 1, ttl: 30000})
 
 
 export async function retrieveServerData() {
