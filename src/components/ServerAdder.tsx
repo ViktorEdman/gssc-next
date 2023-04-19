@@ -38,7 +38,6 @@ function ServerAdder({ setServers }) {
                         setName("");
                         setHost("");
                         setPort("");
-                        setGame("");
                         setServers(serverData);
                     }}
                     className='grid grid-cols-2 gap-1 text-xs text-black w-full justify-left'
