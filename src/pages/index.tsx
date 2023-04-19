@@ -38,6 +38,7 @@ export default function Home({ data, date }) {
     };
 
     useEffect(() => {
+        updateData()
         const interval = setInterval(() => updateData(), 10000);
         return () => clearInterval(interval);
     }, []);

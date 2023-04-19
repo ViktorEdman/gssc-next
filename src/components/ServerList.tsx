@@ -4,7 +4,7 @@ function ServerList({serversData, loading}) {
   return (<>
     <ul className={`w-full z-100 ${loading ? "animate-pulse" : null}`}>
       {serversData.map((server) => (
-        <ServerInfo server={server} key={server.game} />
+        <ServerInfo server={server} key={`${server.game}:${server?.name}`} />
       ))}
     </ul>
   </>);
