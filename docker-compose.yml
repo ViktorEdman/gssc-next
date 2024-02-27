@@ -18,7 +18,9 @@ services:
     env_file:
       - .env
     environment:
-      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/gssc?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/gssc?schema=public
+    ports:
+      - 3000:3000
     depends_on:
       - db
 
@@ -39,6 +41,7 @@ networks:
     external: true
   backend:
     name: backend
+    external: true
 
 volumes:
   postgresdata:
